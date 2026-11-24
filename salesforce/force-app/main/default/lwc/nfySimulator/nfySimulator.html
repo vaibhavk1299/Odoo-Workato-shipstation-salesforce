@@ -1,0 +1,60 @@
+<template>
+    <div class="sim">
+        <header class="band">
+            <div>
+                <p class="eyebrow">Nfinity · Demo simulator</p>
+                <h1>Play the outside systems</h1>
+                <p class="sub">Each button sends the event Shopify, Amazon, ShipMonk, ShipStation, Odoo or a rep would send. It goes through the same Integration API Workato calls, so everything in Salesforce and TC Accounting is real.</p>
+            </div>
+            <lightning-button label="Clear and start over" variant="inverse" onclick={handleClear}></lightning-button>
+        </header>
+
+        <div class="layout">
+            <div class="scenes">
+                <template for:each={scenes} for:item="sc">
+                    <section key={sc.id} class="scene">
+                        <div class="scene-head">
+                            <span class="sid">{sc.id}</span>
+                            <div>
+                                <h2>{sc.title}</h2>
+                                <p class="systems">{sc.systems}</p>
+                            </div>
+                        </div>
+                        <p class="note">{sc.note}</p>
+                        <div class="steps">
+                            <template for:each={sc.steps} for:item="st">
+                                <lightning-button key={st.key} label={st.label} variant={st.variant} data-run={st.run} onclick={handleStep} disabled={st.disabled}></lightning-button>
+                            </template>
+                        </div>
+                    </section>
+                </template>
+            </div>
+
+            <aside class="feed">
+                <h2>What just happened</h2>
+                <template lwc:if={hasFeed}>
+                    <ol class="feed-list">
+                        <template for:each={feed} for:item="f">
+                            <li key={f.key} class="feed-item">
+                                <div class="feed-head"><span class="feed-label">{f.label}</span><span class="feed-at">{f.at}</span></div>
+                                <template for:each={f.items} for:item="r">
+                                    <div key={r.key} class="feed-result">
+                                        <span class={r.pill}>{r.status}</span>
+                                        <p class="feed-msg">{r.message}</p>
+                                        <div class="feed-links">
+                                            <template lwc:if={r.hasRecord}><a data-id={r.recordId} onclick={navigate}>Open {r.recordName}</a></template>
+                                            <template lwc:if={r.hasLog}><a data-id={r.logId} onclick={navigate}>Sync log {r.logName}</a></template>
+                                        </div>
+                                    </div>
+                                </template>
+                            </li>
+                        </template>
+                    </ol>
+                </template>
+                <template lwc:else>
+                    <p class="empty">Run a step and its result, with links to the records and the sync log, shows here.</p>
+                </template>
+            </aside>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Sales_Orders_By_Source</fullName>
+    <columns>NAME</columns>
+    <columns>NFY_External_Order_Id__c</columns>
+    <columns>NFY_Channel__c</columns>
+    <columns>NFY_Fulfillment_Status__c</columns>
+    <columns>NFY_Source_System__c</columns>
+    <columns>NFY_Source_Record_Id__c</columns>
+    <columns>NFY_Last_Sync_Log__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NFY_Source_System__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Sales Orders · All Sources</label>
+</ListView>

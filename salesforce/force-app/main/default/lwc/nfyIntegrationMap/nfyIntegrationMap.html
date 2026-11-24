@@ -1,0 +1,104 @@
+<template>
+    <section class={rootClass} aria-labelledby="nfy-map-title">
+        <header class="head">
+            <span class="head-icon" aria-hidden="true">
+                <lightning-icon icon-name="utility:connected_apps" size="x-small" variant="inverse"></lightning-icon>
+            </span>
+            <div class="head-text">
+                <h2 id="nfy-map-title">Integration map</h2>
+                <p>Built from integration flows and sync logs in Salesforce: systems, mode, direction and status update on their own. Lines show events in the last 24 hours.</p>
+            </div>
+            <div class="filters" role="group" aria-label="Filter systems by status">
+                <template for:each={filters} for:item="f">
+                    <button key={f.key} class="filter" type="button" data-key={f.key} aria-pressed={f.pressed} onclick={handleFilter}>
+                        <template lwc:if={f.dotClass}><span class={f.dotClass} aria-hidden="true"></span></template>{f.label}
+                    </button>
+                </template>
+            </div>
+            <div class="head-actions">
+                <span class="updated"><span class={liveDotClass} aria-hidden="true"></span>{liveText}</span>
+                <lightning-button label="Refresh" onclick={handleRefresh}></lightning-button>
+            </div>
+        </header>
+
+        <template lwc:if={hasSystems}>
+            <div class="map" style={mapStyle}>
+                <template lwc:if={wide}>
+                    <div class="zone" style={leftZoneStyle}></div>
+                    <div class="zone" style={rightZoneStyle}></div>
+                </template>
+
+                <div class="zone-head" style={leftHeadStyle}><span>Sales channels</span><span class="count">{leftCountLabel}</span></div>
+                <template for:each={leftItems} for:item="it">
+                    <c-nfy-system-card key={it.key} style={it.cardStyle} class="cell card-cell" system={it.system} compact={compact} dimmed={it.dimmed} pop-up={it.popUp} onshowfailures={handleShowFailures}></c-nfy-system-card>
+                    <template lwc:if={wide}>
+                        <c-nfy-flow-connector key={it.connKey} style={it.connStyle} class="cell" system={it.system} dimmed={it.dimmed}></c-nfy-flow-connector>
+                    </template>
+                </template>
+
+                <div class="zone-head hub-head" style={hubHeadStyle}><span>Integration hub</span></div>
+                <div class="hub" style={hubStyle} aria-label="Integration hub">
+                    <div class="tier">
+                        <div class="tier-title">
+                            <span class="tier-icon" aria-hidden="true"><lightning-icon icon-name="utility:sync" size="x-small" variant="inverse"></lightning-icon></span>
+                            <template lwc:if={hub.workatoId}>
+                                <button class="tier-link" type="button" data-id={hub.workatoId} onclick={handleNavigate}>Workato</button>
+                            </template>
+                            <template lwc:else><span>Workato</span></template>
+                        </div>
+                        <div class="figures">
+                            <div><span class="big">{hub.recipes}</span><span class="sub">live recipes</span></div>
+                            <div><span class="big muted">{hub.plannedFlows}</span><span class="sub">planned flows</span></div>
+                        </div>
+                    </div>
+                    <div class="tier">
+                        <div class="tier-title">
+                            <span class="tier-icon" aria-hidden="true"><lightning-icon icon-name="utility:feed" size="x-small" variant="inverse"></lightning-icon></span>
+                            <span>Integration API</span>
+                        </div>
+                        <div class="figures">
+                            <div><span class="big">{hub.events}</span><span class="sub">events in the last 24 h</span></div>
+                        </div>
+                    </div>
+                    <div class="tier">
+                        <div class="tier-title">
+                            <span class="tier-icon" aria-hidden="true"><lightning-icon icon-name="utility:database" size="x-small" variant="inverse"></lightning-icon></span>
+                            <template lwc:if={hub.salesforceId}>
+                                <button class="tier-link" type="button" data-id={hub.salesforceId} onclick={handleNavigate}>Salesforce + TC Accounting</button>
+                            </template>
+                            <template lwc:else><span>Salesforce + TC Accounting</span></template>
+                        </div>
+                        <template lwc:if={hasHubEntities}>
+                            <ul class="chips" aria-label="Data Salesforce receives today">
+                                <template for:each={hub.entities} for:item="e">
+                                    <li key={e} class="chip">{e}</li>
+                                </template>
+                            </ul>
+                        </template>
+                        <template lwc:else><span class="sub">Nothing live yet</span></template>
+                    </div>
+                </div>
+
+                <div class="zone-head" style={rightHeadStyle}><span>Fulfilment</span><span class="count">{rightCountLabel}</span></div>
+                <template for:each={rightItems} for:item="it">
+                    <c-nfy-system-card key={it.key} style={it.cardStyle} class="cell card-cell" system={it.system} compact={compact} dimmed={it.dimmed} pop-up={it.popUp} onshowfailures={handleShowFailures}></c-nfy-system-card>
+                    <template lwc:if={wide}>
+                        <c-nfy-flow-connector key={it.connKey} style={it.connStyle} class="cell" system={it.system} dimmed={it.dimmed}></c-nfy-flow-connector>
+                    </template>
+                </template>
+            </div>
+        </template>
+        <template lwc:else>
+            <p class="empty">No systems with integration flows yet.</p>
+        </template>
+
+        <footer class="foot">
+            <span><b>Live</b> an active flow with events in the last 7 days</span>
+            <span><b class="t-bad">Needs action</b> open failures</span>
+            <span><b class="t-warn">Watch</b> 10%+ failed in 7 days</span>
+            <span><b>Idle</b> no recent events</span>
+            <span><b>Planned</b> not built yet</span>
+            <span class="hint">Hover or focus a system to see its flows. Select it to open.</span>
+        </footer>
+    </section>
+</template>

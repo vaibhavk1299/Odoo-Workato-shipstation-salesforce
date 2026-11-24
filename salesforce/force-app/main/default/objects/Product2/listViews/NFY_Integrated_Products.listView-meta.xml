@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Integrated_Products</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>NFT_SKU__c</columns>
+    <columns>NFY_Source_System__c</columns>
+    <columns>NFY_Source_Record_Id__c</columns>
+    <columns>NFY_Odoo_Product_Id__c</columns>
+    <columns>NFT_Shopify_Variant_Id__c</columns>
+    <columns>NFY_Last_Sync_Status__c</columns>
+    <columns>NFY_Last_Synced_At__c</columns>
+    <columns>NFY_Sync_Count__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NFY_Source_System__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Integrated Products · All Sources</label>
+</ListView>

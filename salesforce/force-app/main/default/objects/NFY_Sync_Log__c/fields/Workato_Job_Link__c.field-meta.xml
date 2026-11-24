@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Workato_Job_Link__c</fullName>
+    <description>Opens the Workato job that sent this event.</description>
+    <externalId>false</externalId>
+    <formula>IF(AND(ISPICKVAL(Source__c, &quot;Workato&quot;), NOT(ISBLANK(Flow__r.Workato_Recipe_Id__c)), NOT(ISBLANK(Workato_Job_Id__c))), HYPERLINK(&quot;https://app.trial.workato.com/recipes/&quot; &amp; Flow__r.Workato_Recipe_Id__c &amp; &quot;/job/&quot; &amp; Workato_Job_Id__c, &quot;Open Workato job&quot;, &quot;_blank&quot;), &quot;&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Workato Job Link</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Units_Received__c</fullName>
+    <label>Units Received</label>
+    <summarizedField>NFY_Inbound_Shipment_Line__c.Quantity_Received__c</summarizedField>
+    <summaryForeignKey>NFY_Inbound_Shipment_Line__c.Inbound_Shipment__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

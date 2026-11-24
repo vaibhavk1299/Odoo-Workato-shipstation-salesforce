@@ -1,0 +1,1 @@
+<data><xpath expr="//field[@name='usage']" position="after"><field name="x_nfy_sf_code" placeholder="e.g. MAIN"/><field name="x_nfy_shipstation"/></xpath></data>

@@ -1,0 +1,11 @@
+Name,Code__c,System__r.Code__c,Direction__c,Entity__c,Mode__c,Schedule__c,Environment__c,Version__c,Workato_Recipe__c,Workato_Recipe_Id__c,Active__c
+[Odoo to SFDC] - Sales Orders,ODOO_SHOP-ORDER,ODOO_SHOP,Into Salesforce,Order,Webhook,Real-time,Test,v1.0,[Odoo to SFDC] - Sales Orders,408639,true
+[Odoo to SFDC] - Products,ODOO_SHOP-PRODUCT,ODOO_SHOP,Into Salesforce,Product,Webhook,,Test,,[Odoo to SFDC] - Products,411537,true
+[Odoo to SFDC] - Stock,ODOO_SHOP-INVENTORY,ODOO_SHOP,Into Salesforce,Inventory,Webhook,,Test,,[Odoo to SFDC] - Stock,411572,true
+[Odoo to SFDC] - Shipments,ODOO_SHOP-SHIPMENT,ODOO_SHOP,Into Salesforce,Shipment,Webhook,Real-time,Test,v1.0,[Odoo to SFDC] - Shipments,411490,true
+[Odoo to SFDC] - Inbound & In-Transit,ODOO_SHOP-INBOUND,ODOO_SHOP,Into Salesforce,Inbound,Webhook,,Test,,[Odoo to SFDC] - Inbound & In-Transit,417679,true
+[Odoo to SFDC] - Payments,ODOO_SHOP-PAYMENT,ODOO_SHOP,Into Salesforce,Payment,Webhook,,Test,,[Odoo to SFDC] - Payments,420219,true
+[Odoo to SFDC] - Payment Reconciliation,ODOO_SHOP-PAYRECON,ODOO_SHOP,Into Salesforce,Payment,Daily batch,,Test,,[Odoo to SFDC] - Payment Reconciliation,420315,true
+[Odoo to ShipStation] - Orders,SHIPSTATION-ORDER,SHIPSTATION,System to system,Order,Webhook,Real-time,Test,v1.0,[Odoo to ShipStation] - Orders,412419,true
+[ShipStation to SFDC] - Shipments,SHIPSTATION-SHIPMENT,SHIPSTATION,Into Salesforce,Shipment,Webhook,Real-time,Test,v1.0,[ShipStation to SFDC] - Shipments,412422,true
+[SFDC to ShipStation] - Released Orders,SHIPSTATION-RELEASE,SHIPSTATION,Out of Salesforce,Order,Webhook,,Test,,[SFDC to ShipStation] - Released Orders,419546,false

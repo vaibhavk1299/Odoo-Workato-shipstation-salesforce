@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Short_Qty__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND(Inventory_Product__c, NFY_Ship_From__r.NFY_Code__c &lt;&gt; &quot;FACTORY&quot;), MAX(BLANKVALUE(Quantity_Ordered__c, 0) - BLANKVALUE(Quantity_Allocated__c, 0), 0), 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Short Qty</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

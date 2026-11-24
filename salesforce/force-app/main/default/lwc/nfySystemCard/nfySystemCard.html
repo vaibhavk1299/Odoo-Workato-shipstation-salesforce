@@ -1,0 +1,52 @@
+<template>
+    <div class={wrapClass} onmouseenter={handleEnter} onmouseleave={handleLeave} onfocusin={handleFocusIn} onfocusout={handleFocusOut} onkeydown={handleKeyDown}>
+        <a class={cardClass} href={url} onclick={handleOpen} aria-label={cardAria}>
+            <div class="top">
+                <span class="tile" aria-hidden="true">{model.monogram}</span>
+                <span class="name">{model.name}</span>
+                <c-nfy-status-badge status={model.status}></c-nfy-status-badge>
+            </div>
+            <div class="meta"><span>{model.mode}</span><span>{model.lastEvent}</span></div>
+            <div class="stats">
+                <div><b>{model.flowsLive}</b>flows live</div>
+                <div><b>{model.failureRate}</b>failed 7 d</div>
+                <div><b class={errClass}>{model.openErrors}</b>{model.openErrorsLabel}</div>
+            </div>
+            <template lwc:if={showFlowLine}>
+                <div class="flowline"><span class={arrowClass} aria-hidden="true">{flowArrow}</span>{flowSummary}</div>
+            </template>
+        </a>
+        <template lwc:if={compact}>
+            <button class="toggle" type="button" aria-expanded={popoverOpenText} onclick={handleToggle}>{toggleLabel}</button>
+        </template>
+        <template lwc:if={popoverOpen}>
+            <section class={popClass} role="group" aria-label={popAria}>
+                <div class="pop-head">
+                    <span class="pop-title">{model.name} · {flowCountLabel}</span>
+                    <template lwc:if={model.hasOpenErrors}>
+                        <c-nfy-status-badge status="needsAction" label={openErrorsBadge}></c-nfy-status-badge>
+                    </template>
+                </div>
+                <ul class="pop-list">
+                    <template for:each={model.flows} for:item="f">
+                        <li key={f.key} class="pop-row">
+                            <span class="pop-flow">{f.name}<small>{f.detail}</small></span>
+                            <template lwc:if={f.live}>
+                                <c-nfy-status-badge status="healthy" label="Live"></c-nfy-status-badge>
+                            </template>
+                            <template lwc:else>
+                                <c-nfy-status-badge status="planned" label="Planned"></c-nfy-status-badge>
+                            </template>
+                        </li>
+                    </template>
+                </ul>
+                <div class="pop-foot">
+                    <template lwc:if={model.hasOpenErrors}>
+                        <button class="linkbtn" type="button" onclick={handleShowFailures}>View open failures</button>
+                    </template>
+                    <a href={url} onclick={handleOpen}>Open system</a>
+                </div>
+            </section>
+        </template>
+    </div>
+</template>

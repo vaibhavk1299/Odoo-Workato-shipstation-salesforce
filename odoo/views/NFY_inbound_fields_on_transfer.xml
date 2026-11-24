@@ -1,0 +1,1 @@
+<data><field name="location_dest_id" position="after"><field name="x_nfy_final_location_id" string="Final Destination (in transit)" options="{'no_create': True}" invisible="location_dest_id == False"/><field name="x_nfy_inbound_ref" string="Inbound Shipment" readonly="1" invisible="not x_nfy_inbound_ref"/></field></data>

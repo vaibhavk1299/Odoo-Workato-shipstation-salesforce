@@ -1,0 +1,6 @@
+{
+  "name": "nfinity-odoo-workato-shipstation",
+  "namespace": "",
+  "packageDirectories": [{ "path": "force-app", "default": true }],
+  "sourceApiVersion": "64.0"
+}

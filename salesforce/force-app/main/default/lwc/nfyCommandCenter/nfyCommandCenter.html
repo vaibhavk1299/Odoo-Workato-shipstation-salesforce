@@ -1,0 +1,246 @@
+<template>
+    <div class="cc">
+        <header class="band">
+            <div class="band-text">
+                <p class="eyebrow">Nfinity · Ops Command Center</p>
+                <h1>Every order, stock movement, shipment and sync, in one place</h1>
+                <p class="sub">Salesforce orders · TC Accounting stock and GL · Shopify, Amazon, ShipMonk, ShipStation, Global-e and Odoo through Workato</p>
+            </div>
+            <div class="band-actions">
+                <span class="live"><span class={liveClass}></span>{liveLabel}</span>
+                <span class="asof">Updated {asOf}</span>
+                <lightning-button-icon icon-name="utility:refresh" alternative-text="Refresh" variant="border-inverse" onclick={handleRefresh}></lightning-button-icon>
+            </div>
+        </header>
+
+        <template lwc:if={error}>
+            <div class="slds-notify slds-notify_alert slds-alert_error" role="alert">{error}</div>
+        </template>
+        <template lwc:if={loading}>
+            <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+        </template>
+
+        <template lwc:if={summary}>
+            <section class="kpis">
+                <template for:each={kpis} for:item="k">
+                    <div key={k.key} class={k.cls}>
+                        <span class="kpi-label">{k.label}</span>
+                        <span class="kpi-value">{k.display}</span>
+                        <span class="kpi-note">{k.note}</span>
+                    </div>
+                </template>
+            </section>
+
+            <section class="card">
+                <template lwc:if={useModernMap}>
+                    <c-nfy-integration-map systems={summary.systems} as-of={asOf} live={live} onrefresh={handleRefresh} onshowfailures={handleShowFailures}></c-nfy-integration-map>
+                </template>
+                <template lwc:else>
+                <div class="card-head">
+                    <h2>Integration map</h2>
+                    <p>Built from the integration flows and sync logs in Salesforce: systems, mode, direction and status update on their own. Arrows show which way data moves; lines show events in the last 24 hours.</p>
+                </div>
+                <div class="map-wrap">
+                    <svg class="map" viewBox={mapViewBox} role="img" aria-label={mapAriaLabel}>
+                        <text class="map-col" x={mapHeaders.left} y={mapHeaders.y}>SALES CHANNELS</text>
+                        <text class="map-col" x={mapHeaders.mid} y={mapHeaders.y} text-anchor="middle">INTEGRATION HUB</text>
+                        <text class="map-col" x={mapHeaders.right} y={mapHeaders.y} text-anchor="end">FULFILMENT</text>
+
+                        <template for:each={mapNodes} for:item="n">
+                            <g key={n.code}>
+                                <line class={n.edgeCls} x1={n.x1} y1={n.cy} x2={n.x2} y2={n.cy}></line>
+                                <template lwc:if={n.showIn}>
+                                    <polygon class={n.arrowCls} points={n.inPoints}></polygon>
+                                </template>
+                                <template lwc:if={n.showOut}>
+                                    <polygon class={n.arrowCls} points={n.outPoints}></polygon>
+                                </template>
+                                <text class={n.metricCls} x={n.lx} y={n.ly} text-anchor="middle">{n.metric}</text>
+                                <text class="map-flows" x={n.lx} y={n.ly2} text-anchor="middle">{n.flowLabel}</text>
+                            </g>
+                        </template>
+
+                        <rect class="map-hub" x={hub.x} y={hub.y} width={hub.w} height={hub.h} rx="6"></rect>
+                        <template for:each={hub.rows} for:item="r">
+                            <g key={r.key} class="map-g" data-id={r.id} onclick={navigate}>
+                                <template lwc:if={r.divider}>
+                                    <line class="map-hub-div" x1={hub.x} y1={r.dy} x2={hub.x2} y2={r.dy}></line>
+                                </template>
+                                <text class="map-hub-title" x={hub.cx} y={r.ty1} text-anchor="middle">{r.title}</text>
+                                <text class="map-hub-sub" x={hub.cx} y={r.ty2} text-anchor="middle">{r.sub}</text>
+                            </g>
+                        </template>
+
+                        <template for:each={mapNodes} for:item="n">
+                            <g key={n.code} class="map-g" data-id={n.id} onclick={navigate}>
+                                <title>{n.tooltip}</title>
+                                <rect class={n.nodeCls} x={n.x} y={n.y} width={n.w} height={n.h} rx="6"></rect>
+                                <rect class={n.accentCls} x={n.accentX} y={n.y} width="3" height={n.h}></rect>
+                                <text class="map-title" x={n.tx} y={n.ty1}>{n.name}</text>
+                                <text class="map-sub" x={n.tx} y={n.ty2}>{n.detail}</text>
+                                <text class={n.statusCls} x={n.sx} y={n.ty1} text-anchor="end">{n.status}</text>
+                            </g>
+                        </template>
+
+                        <text class="map-foot" x={mapHeaders.left} y={mapFootY}>Live = an active flow with events in the last 7 days. Needs action = open failures; Watch = 10%+ failed in 7 days. Hover for flows, select to open.</text>
+                    </svg>
+                </div>
+                </template>
+                <div class="table-wrap">
+                    <table class="tbl">
+                        <thead>
+                            <tr><th>System</th><th>Category</th><th>Mode</th><th>Direction</th><th class="num">Live flows</th><th class="num">Recipes</th><th class="num">Events 24h</th><th class="num">Failed 24h</th><th class="num">Failure rate 7d</th><th class="num">Open errors</th><th>Last event</th><th>Health</th></tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={healthRows} for:item="s">
+                                <tr key={s.id}>
+                                    <td><a data-id={s.id} onclick={navigate}>{s.name}</a></td>
+                                    <td>{s.category}</td>
+                                    <td>{s.modeLabel}</td>
+                                    <td>{s.directionLabel}</td>
+                                    <td class="num">{s.flowsLabel}</td>
+                                    <td class="num">{s.recipes}</td>
+                                    <td class="num">{s.jobs24h}</td>
+                                    <td class="num">{s.failed24h}</td>
+                                    <td class="num">{s.rate}</td>
+                                    <td class="num">{s.openErrors}</td>
+                                    <td>{s.last}</td>
+                                    <td><span class={s.pillCls}>{s.pillLabel}</span></td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <div class="grid-2">
+                <section class="card">
+                    <div class="card-head">
+                        <h2>Orders by channel</h2>
+                        <p>Every channel lands as a Salesforce Order with a TC Sales Order behind it.</p>
+                    </div>
+                    <div class="table-wrap">
+                        <table class="tbl">
+                            <thead><tr><th>Channel</th><th class="num">Waiting</th><th class="num">Partial</th><th class="num">Shipped</th><th class="num">Billed</th><th class="num">Orders 30d</th><th class="num">Revenue 30d</th></tr></thead>
+                            <tbody>
+                                <template for:each={channelRows} for:item="c">
+                                    <tr key={c.channel}>
+                                        <td>{c.channel}</td>
+                                        <td class="num">{c.awaiting}</td>
+                                        <td class="num">{c.partial}</td>
+                                        <td class="num">{c.shipped}</td>
+                                        <td class="num">{c.billed}</td>
+                                        <td class="num">{c.last30}</td>
+                                        <td class="num">{c.revenue}</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="card">
+                    <div class="card-head">
+                        <h2>Stock by warehouse</h2>
+                        <p>TC Accounting is the stock of record. Rank is the Shopify routing order. {fieldStock} units sit with reps and events, outside sellable stock.</p>
+                    </div>
+                    <ul class="bars">
+                        <template for:each={stockRows} for:item="w">
+                            <li key={w.warehouseId} class="bar-row" data-id={w.warehouseId} onclick={navigate}>
+                                <span class="bar-name"><span class="rank">{w.rankLabel}</span>{w.name}<span class="bar-type">{w.type}</span></span>
+                                <span class="bar-track"><span class="bar-fill" style={w.barStyle}></span><span class="bar-transit" style={w.transitStyle}></span></span>
+                                <span class="bar-value">{w.availableLabel}<span class="bar-transit-label">{w.transitLabel}</span></span>
+                            </li>
+                        </template>
+                    </ul>
+                </section>
+            </div>
+
+            <div class="grid-3">
+                <section class="card failures-card" tabindex="-1">
+                    <div class="card-head">
+                        <h2>Sync failures to fix</h2>
+                        <p>Each failure keeps its payload. Fix the cause, then retry.</p>
+                    </div>
+                    <template lwc:if={hasFailures}>
+                        <ul class="fails">
+                            <template for:each={failures} for:item="f">
+                                <li key={f.id} class="fail">
+                                    <div class="fail-head">
+                                        <a data-id={f.id} onclick={navigate}>{f.name}</a>
+                                        <span class="fail-meta">{f.systemName} · {f.eventType} · {f.when}</span>
+                                    </div>
+                                    <p class="fail-msg">{f.error}</p>
+                                    <div class="fail-foot">
+                                        <span class="fail-meta">{f.externalId} · attempt {f.attempts}</span>
+                                        <lightning-button label="Retry" size="small" data-id={f.id} onclick={handleRetry} disabled={f.busy}></lightning-button>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </template>
+                    <template lwc:else>
+                        <p class="empty">No open failures.</p>
+                    </template>
+                </section>
+
+                <section class="card">
+                    <div class="card-head">
+                        <h2>Inbound on the way</h2>
+                        <p>FBA inbound, 3PL ASNs and factory containers.</p>
+                    </div>
+                    <ul class="inbound">
+                        <template for:each={inbound} for:item="i">
+                            <li key={i.id} class="in-row" data-id={i.id} onclick={navigate}>
+                                <div class="in-main"><span class="in-name">{i.name}</span><span class={i.pillCls}>{i.status}</span></div>
+                                <div class="in-sub">{i.type}: {i.fromName} → {i.toName}</div>
+                                <div class="in-sub"><b>{i.unitsLabel}</b> units · {i.when}</div>
+                            </li>
+                        </template>
+                    </ul>
+                </section>
+
+                <section class="card">
+                    <div class="card-head">
+                        <h2>Month-end close</h2>
+                        <p>What stands between today and a clean close in TC Accounting.</p>
+                    </div>
+                    <ul class="close">
+                        <template for:each={closeItems} for:item="c">
+                            <li key={c.key} class={c.cls}><span>{c.label}</span><span class="close-val">{c.value}</span></li>
+                        </template>
+                    </ul>
+                </section>
+            </div>
+
+            <section class="card">
+                <div class="card-head row">
+                    <div>
+                        <h2>Stock by SKU and location</h2>
+                        <p>Available units per size, the same view Nfinity has on each product today, for every SKU at once.</p>
+                    </div>
+                    <lightning-radio-group name="family" label="Family" variant="label-hidden" options={familyOptions} value={family} type="button" onchange={handleFamily}></lightning-radio-group>
+                </div>
+                <div class="table-wrap">
+                    <table class="tbl matrix">
+                        <thead>
+                            <tr>
+                                <th>Product</th><th>SKU</th>
+                                <template for:each={matrixColumns} for:item="c"><th key={c.code} class="num">{c.label}</th></template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template for:each={matrixRows} for:item="r">
+                                <tr key={r.key}>
+                                    <td><a data-id={r.key} onclick={navigate}>{r.name}</a></td>
+                                    <td class="sku">{r.sku}</td>
+                                    <template for:each={r.cells} for:item="c"><td key={c.key} class={c.cls}>{c.value}</td></template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </template>
+    </div>
+</template>

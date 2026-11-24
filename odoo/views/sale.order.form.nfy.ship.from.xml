@@ -1,0 +1,1 @@
+<data><xpath expr="//field[@name='partner_id']" position="after"><field name="x_nfy_ship_from" required="1" readonly="state in ('sale','cancel')"/></xpath></data>

@@ -1,0 +1,18 @@
+:host { display: block; min-width: 0; height: 100%; }
+.conn { height: 100%; display: flex; flex-direction: column; justify-content: center; gap: 5px; min-width: 0; color: #939393; transition: opacity .15s; }
+.conn.dim { opacity: .3; }
+.label { align-self: center; max-width: 100%; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; font-weight: 700; line-height: 1.5; padding: 0 8px; border-radius: 15rem; background: #ffffff; border: 1px solid #dddbda; white-space: nowrap; color: #444444; }
+.track { display: flex; align-items: center; }
+.line { flex: 1; border-top: 2px solid currentColor; }
+.head { flex: none; fill: currentColor; }
+.entities { align-self: center; max-width: 100%; text-align: center; font-size: 11px; color: #706e6b; }
+.s-healthy { color: #2e844a; }
+.s-healthy .label { color: #194e31; border-color: #91db8b; }
+.s-needsAction { color: #ea001e; }
+.s-needsAction .label { color: #8e030f; border-color: #fe9d8f; }
+.s-watch { color: #dd7a01; }
+.s-watch .label { color: #6f3400; border-color: #fcc003; }
+.s-idle { color: #939393; }
+.s-planned { color: #c9c9c9; }
+.s-planned .label { color: #706e6b; border-style: dashed; }
+.dashed .line { border-top-style: dashed; }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Synced_By_Workato</fullName>
+    <columns>NAME</columns>
+    <columns>System__c</columns>
+    <columns>Event_Type__c</columns>
+    <columns>External_Id__c</columns>
+    <columns>Status__c</columns>
+    <columns>Error_Category__c</columns>
+    <columns>Retry_Status__c</columns>
+    <columns>Source__c</columns>
+    <columns>Received_At__c</columns>
+    <columns>Attempts__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Source__c</field>
+        <operation>equals</operation>
+        <value>Workato</value>
+    </filters>
+    <label>Synced by Workato</label>
+</ListView>

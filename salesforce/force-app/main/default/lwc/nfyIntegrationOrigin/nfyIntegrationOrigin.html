@@ -1,0 +1,92 @@
+<template>
+    <!-- Integration Origin card -->
+    <template lwc:if={isCard}>
+        <lightning-card title="Integration Origin" icon-name="standard:data_integration_hub">
+            <div class="slds-p-horizontal_medium">
+                <template lwc:if={loading}><lightning-spinner size="small" alternative-text="Loading origin"></lightning-spinner></template>
+                <template lwc:elseif={error}><p class="slds-text-color_error">{error}</p></template>
+                <template lwc:elseif={integrated}>
+                    <dl class="slds-list_horizontal slds-wrap origin">
+                        <dt class="slds-item_label slds-text-color_weak">Source System</dt>
+                        <dd class="slds-item_detail"><span class="slds-badge source">{origin.sourceSystem}</span></dd>
+                        <dt class="slds-item_label slds-text-color_weak">Source Record</dt>
+                        <dd class="slds-item_detail">{origin.sourceRecordId}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Source Key</dt>
+                        <dd class="slds-item_detail">{origin.sourceKey}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Synced Via</dt>
+                        <dd class="slds-item_detail">{origin.syncedVia}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Last Synced</dt>
+                        <dd class="slds-item_detail"><lightning-formatted-date-time value={origin.lastSyncedAt} year="numeric" month="short" day="numeric" hour="2-digit" minute="2-digit"></lightning-formatted-date-time></dd>
+                        <dt class="slds-item_label slds-text-color_weak">Last Sync Result</dt>
+                        <dd class="slds-item_detail"><span class={lastStatusClass}>{origin.lastStatus}</span> {origin.lastOperation}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Sync Count</dt>
+                        <dd class="slds-item_detail">{origin.syncCount}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Last Sync Log</dt>
+                        <dd class="slds-item_detail"><a href={lastLogUrl}>{origin.lastLogName}</a></dd>
+                    </dl>
+                    <template lwc:if={hasSystemIds}>
+                        <p class="slds-text-title_caps slds-m-top_small slds-m-bottom_xx-small">IDs in each system</p>
+                        <dl class="slds-list_horizontal slds-wrap origin">
+                            <template for:each={origin.systemIds} for:item="s">
+                                <dt key={s.label} class="slds-item_label slds-text-color_weak">{s.label}</dt>
+                                <dd key={s.value} class="slds-item_detail">{s.value}</dd>
+                            </template>
+                        </dl>
+                    </template>
+                    <div class="slds-m-top_small slds-button-group-row">
+                        <template lwc:if={origin.sourceUrl}>
+                            <lightning-button label={sourceButtonLabel} onclick={openSource} class="slds-m-right_x-small"></lightning-button>
+                        </template>
+                        <template lwc:if={origin.workatoJobUrl}>
+                            <lightning-button label="Open Workato job" onclick={openJob}></lightning-button>
+                        </template>
+                    </div>
+                </template>
+                <template lwc:else>
+                    <p class="slds-text-color_weak">This record did not arrive through an integration.</p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+
+    <!-- Integration Log related list -->
+    <template lwc:if={isLog}>
+        <lightning-card title={logTitle} icon-name="standard:event">
+            <template lwc:if={loading}><lightning-spinner size="small" alternative-text="Loading log"></lightning-spinner></template>
+            <template lwc:elseif={error}><p class="slds-p-horizontal_medium slds-text-color_error">{error}</p></template>
+            <template lwc:elseif={hasLogs}>
+                <lightning-datatable key-field="id" data={logRows} columns={columns} hide-checkbox-column></lightning-datatable>
+            </template>
+            <template lwc:else><p class="slds-p-horizontal_medium slds-text-color_weak">No integration events for this record.</p></template>
+        </lightning-card>
+    </template>
+
+    <!-- Integration Log event with Retry -->
+    <template lwc:if={isEvent}>
+        <lightning-card title="Sync result" icon-name="standard:data_integration_hub">
+            <lightning-button slot="actions" variant="brand" label="Retry" onclick={handleRetry} disabled={retryDisabled}></lightning-button>
+            <div class="slds-p-horizontal_medium">
+                <template lwc:if={loading}><lightning-spinner size="small" alternative-text="Loading event"></lightning-spinner></template>
+                <template lwc:elseif={error}><p class="slds-text-color_error">{error}</p></template>
+                <template lwc:elseif={log}>
+                    <p class="slds-m-bottom_small"><span class={eventStatusClass}>{log.status}</span></p>
+                    <template lwc:if={log.error}>
+                        <div class="slds-box slds-theme_shade slds-m-bottom_small"><p class="slds-text-color_error"><strong>Error:</strong> {log.error}</p></div>
+                    </template>
+                    <dl class="slds-list_horizontal slds-wrap origin">
+                        <dt class="slds-item_label slds-text-color_weak">Error Category</dt><dd class="slds-item_detail">{log.errorCategory}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Retry Status</dt><dd class="slds-item_detail">{log.retryStatus}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Operation</dt><dd class="slds-item_detail">{log.operation}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Transport</dt><dd class="slds-item_detail">{log.transport}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Attempts</dt><dd class="slds-item_detail">{log.attempts}</dd>
+                        <dt class="slds-item_label slds-text-color_weak">Resolved</dt><dd class="slds-item_detail">{resolvedText}</dd>
+                    </dl>
+                    <template lwc:if={log.jobUrl}>
+                        <lightning-button class="slds-m-top_small" label="Open Workato job" onclick={openEventJob}></lightning-button>
+                    </template>
+                    <p class="slds-text-color_weak slds-m-top_small">Retry sends the saved payload again. Fix the cause first: a missing product, a mapping or an order that has not synced yet.</p>
+                </template>
+            </div>
+        </lightning-card>
+    </template>
+</template>

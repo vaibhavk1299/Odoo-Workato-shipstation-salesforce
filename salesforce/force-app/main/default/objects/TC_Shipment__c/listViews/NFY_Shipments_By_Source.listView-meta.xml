@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Shipments_By_Source</fullName>
+    <columns>NAME</columns>
+    <columns>Sales_Order__c</columns>
+    <columns>NFY_Source_System__c</columns>
+    <columns>NFY_Label_System__c</columns>
+    <columns>NFY_Carrier__c</columns>
+    <columns>NFY_Tracking_Number__c</columns>
+    <columns>NFY_External_Id__c</columns>
+    <columns>NFY_Last_Sync_Log__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NFY_Source_System__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Shipments · All Sources</label>
+</ListView>

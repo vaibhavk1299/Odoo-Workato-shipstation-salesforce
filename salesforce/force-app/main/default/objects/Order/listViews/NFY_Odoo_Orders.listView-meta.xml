@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Odoo_Orders</fullName>
+    <columns>ORDERS.ORDER_NUMBER</columns>
+    <columns>SALES.ACCOUNT.NAME</columns>
+    <columns>ORDERS.TOTAL_AMOUNT</columns>
+    <columns>NFY_Fulfillment_Status__c</columns>
+    <columns>NFY_Source_System__c</columns>
+    <columns>NFY_Source_Record_Id__c</columns>
+    <columns>NFY_Synced_Via__c</columns>
+    <columns>NFY_Last_Sync_Status__c</columns>
+    <columns>NFY_Last_Synced_At__c</columns>
+    <columns>NFY_Sync_Count__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NFY_Source_System__c</field>
+        <operation>equals</operation>
+        <value>Odoo</value>
+    </filters>
+    <label>Odoo Orders</label>
+</ListView>

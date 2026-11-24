@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Integrated_Contacts</fullName>
+    <columns>FULL_NAME</columns>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>CONTACT.EMAIL</columns>
+    <columns>NFY_Source_System__c</columns>
+    <columns>NFY_Source_Record_Id__c</columns>
+    <columns>NFY_Synced_Via__c</columns>
+    <columns>NFY_Last_Synced_At__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>NFY_Source_System__c</field>
+        <operation>notEqual</operation>
+    </filters>
+    <label>Integrated Contacts · All Sources</label>
+</ListView>

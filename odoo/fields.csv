@@ -1,0 +1,17 @@
+model,field,label,type,stored,computed_code,notes
+sale.order,x_nfy_ship_from,Ship From (Salesforce code),selection,yes,,"Values MAIN / SM-PA1 / FBA-US; must match TC_Warehouse__c.NFY_Code__c; required on the form"
+sale.order,x_nfy_payload,Workato Order Payload,json,no,computed-fields/sale.order.x_nfy_payload.py,Body of the order webhook
+stock.picking,x_nfy_carrier,Carrier,selection,yes,,"UPS, USPS, FedEx, DHL eCommerce, OnTrac, Amazon Logistics"
+stock.picking,x_nfy_tracking,Tracking Number,char,yes,,
+stock.picking,x_nfy_shipment_payload,Workato Shipment Payload,json,no,computed-fields/stock.picking.x_nfy_shipment_payload.py,Body of the shipment webhook (non-ShipStation warehouses)
+stock.picking,x_nfy_shipstation_payload,NFY ShipStation Payload,json,no,computed-fields/stock.picking.x_nfy_shipstation_payload.py,ShipStation createorder body; False when not eligible
+stock.picking,x_nfy_final_location_id,Final Destination (in-transit transfer),many2one stock.location,yes,,Set on a transfer into Inter-warehouse transit
+stock.picking,x_nfy_inbound_ref,Inbound Shipment Ref,char,yes,,Set automatically on the receipt created from transit
+stock.picking,x_nfy_inbound_payload,NFY Inbound Payload,json,no,computed-fields/stock.picking.x_nfy_inbound_payload.py,Vendor receipts and in-transit transfers
+product.product,x_nfy_product_payload,NFY Product Payload,json,no,computed-fields/product.product.x_nfy_product_payload.py,One variant
+product.template,x_nfy_product_payload,NFY Product Payload,json,no,computed-fields/product.template.x_nfy_product_payload.py,All variants (archived included)
+stock.location,x_nfy_sf_code,Salesforce Warehouse Code,char(40),yes,,Set only on the top location of each Salesforce warehouse; children inherit
+stock.location,x_nfy_shipstation,Ships with ShipStation,boolean,yes,,Deliveries from this location (or below) go to ShipStation
+stock.move,x_nfy_stock_payload,NFY Stock Payload,json,no,computed-fields/stock.move.x_nfy_stock_payload.py,False when the move is not sent
+account.payment,x_nfy_payment_payload,NFY Payment Payload,json,no,computed-fields/account.payment.x_nfy_payment_payload.py,payment.received / payment.reversed
+res.company,x_nfy_payment_payload,NFY Payment Snapshot,json,no,computed-fields/res.company.x_nfy_payment_payload.py,Customer payments changed in the last 7 days

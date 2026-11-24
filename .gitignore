@@ -1,0 +1,26 @@
+# Salesforce CLI
+.sf/
+.sfdx/
+salesforce/.sf/
+salesforce/.sfdx/
+**/.localdevserver/
+*.log
+
+# Local environment values (never commit)
+config/environment.local.env
+*.local.env
+.env
+.env.*
+
+# Credentials and keys
+*.pem
+*.key
+*.p12
+*credentials*.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+node_modules/

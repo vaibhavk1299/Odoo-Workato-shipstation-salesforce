@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Stock_Status__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(NOT(Inventory_Product__c), &quot;Billed only&quot;, IF(AND(NFY_Ship_From__r.NFY_Code__c = &quot;FACTORY&quot;, BLANKVALUE(Quantity_Allocated__c, 0) &lt; BLANKVALUE(Quantity_Ordered__c, 0)), &quot;Factory drop-ship&quot;, IF(BLANKVALUE(Quantity_Allocated__c, 0) &gt;= BLANKVALUE(Quantity_Ordered__c, 0), &quot;Fully assigned&quot;, IF(BLANKVALUE(Quantity_Allocated__c, 0) &gt; 0, &quot;Partially assigned&quot;, &quot;No stock&quot;))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Stock Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

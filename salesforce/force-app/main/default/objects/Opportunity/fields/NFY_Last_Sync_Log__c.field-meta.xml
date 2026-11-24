@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Last_Sync_Log__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Integration Log entry of the most recent sync.</description>
+    <label>Last Sync Log</label>
+    <referenceTo>NFY_Sync_Log__c</referenceTo>
+    <relationshipLabel>Opportunities (last sync)</relationshipLabel>
+    <relationshipName>Last_Sync_Opportunities</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Lookup</type>
+</CustomField>

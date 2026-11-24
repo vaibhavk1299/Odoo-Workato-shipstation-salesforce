@@ -1,0 +1,88 @@
+<template>
+    <lightning-card title="Order Journey" icon-name="standard:timeline">
+        <div class="body">
+            <template lwc:if={error}><p class="err">{error}</p></template>
+            <template lwc:if={hasJourney}>
+                <div class="head">
+                    <div>
+                        <p class="order">{journey.orderNumber} · {originLabel}</p>
+                        <p class="routing">{journey.routing}</p>
+                    </div>
+                    <a class="so" data-id={journey.salesOrderId} onclick={navigate}>TC Sales Order {journey.salesOrderName}</a>
+                </div>
+                <lightning-progress-indicator current-step={currentStage} type="path" variant="base">
+                    <template for:each={stages} for:item="s">
+                        <lightning-progress-step key={s.value} label={s.label} value={s.value}></lightning-progress-step>
+                    </template>
+                </lightning-progress-indicator>
+
+                <table class="lines">
+                    <thead><tr><th>Product</th><th>Ship from</th><th class="num">Requested</th><th class="num">Assigned</th><th class="num">Short</th><th class="num">Shipped</th><th>Stock status</th></tr></thead>
+                    <tbody>
+                        <template for:each={lines} for:item="l">
+                            <tr key={l.key}><td>{l.product}</td><td>{l.shipFrom}</td><td class="num">{l.ordered}</td><td class="num">{l.allocated}</td><td class={l.shortCls}>{l.shortQty}</td><td class="num">{l.shipped}</td><td>{l.status}</td></tr>
+                        </template>
+                    </tbody>
+                </table>
+
+
+                <template lwc:if={hasMessages}>
+                    <section class="jx-h" aria-label="Order history">
+                        <div class="jx-h-head">
+                            <div class="jx-h-heading">
+                                <lightning-icon icon-name="utility:clock" size="x-small" class="jx-h-icon"></lightning-icon>
+                                <h3 class="jx-h-title">Order history</h3>
+                                <span class="jx-h-count">{historyCount} events</span>
+                            </div>
+                            <template lwc:if={liveMode}><span class={liveCls}><span class="jx-h-live-dot"></span>{liveLabel}</span></template>
+                        </div>
+                            <p class="jx-h-sub">Every step from the source system to billing, oldest first. Each event shows the systems it passed through, its status and the records it created.</p>
+                            <template for:each={historyDays} for:item="d">
+                                <div key={d.key} class="jx-h-day">
+                                    <p class="jx-h-date">{d.label}</p>
+                                    <ol class="jx-h-list">
+                                        <template for:each={d.events} for:item="e">
+                                            <li key={e.key} class={e.cls}>
+                                                <span class="jx-h-time">{e.time}<span class="jx-h-sec">{e.seconds}</span></span>
+                                                <span class="jx-h-rail"><span class="jx-h-dot"></span></span>
+                                                <div class="jx-h-card">
+                                                    <div class="jx-h-top">
+                                                        <div class="jx-h-route" aria-label="Systems">
+                                                            <template for:each={e.route} for:item="r">
+                                                                <span key={r.key} class="jx-h-hop">
+                                                                    <template lwc:if={r.arrow}><span class="jx-h-arrow" aria-hidden="true">→</span></template>
+                                                                    <span class={r.cls}>{r.label}</span>
+                                                                </span>
+                                                            </template>
+                                                        </div>
+                                                        <span class={e.statusCls}>{e.statusLabel}</span>
+                                                    </div>
+                                                    <p class="jx-h-event">{e.title}</p>
+                                                    <p class="jx-h-detail">{e.detail}</p>
+                                                    <template lwc:if={e.note}>
+                                                        <p class="jx-h-note"><lightning-icon icon-name="utility:info_alt" size="xx-small" class="jx-h-note-icon"></lightning-icon><span>{e.note}</span></p>
+                                                    </template>
+                                                    <template lwc:if={e.hasRefs}>
+                                                        <div class="jx-h-refs">
+                                                            <span class="jx-h-refs-label">Related</span>
+                                                            <template for:each={e.refs} for:item="f">
+                                                                <a key={f.key} class={f.cls} data-id={f.recordId} onclick={navigate} title={f.title}>{f.label}</a>
+                                                            </template>
+                                                            <template lwc:if={e.job}><span class="jx-h-job">{e.job}</span></template>
+                                                        </div>
+                                                    </template>
+                                                </div>
+                                            </li>
+                                        </template>
+                                    </ol>
+                                </div>
+                            </template>
+                    </section>
+                </template>
+            </template>
+            <template lwc:elseif={journey}>
+                <p class="empty">This record is not linked to a Nfinity order yet.</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>

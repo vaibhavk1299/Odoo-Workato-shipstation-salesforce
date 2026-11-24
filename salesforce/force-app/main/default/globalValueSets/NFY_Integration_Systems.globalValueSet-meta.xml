@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Odoo</fullName>
+        <default>false</default>
+        <label>Odoo</label>
+    </customValue>
+    <customValue>
+        <fullName>Shopify</fullName>
+        <default>false</default>
+        <label>Shopify</label>
+    </customValue>
+    <customValue>
+        <fullName>Amazon</fullName>
+        <default>false</default>
+        <label>Amazon</label>
+    </customValue>
+    <customValue>
+        <fullName>Global-e</fullName>
+        <default>false</default>
+        <label>Global-e</label>
+    </customValue>
+    <customValue>
+        <fullName>ShipStation</fullName>
+        <default>false</default>
+        <label>ShipStation</label>
+    </customValue>
+    <customValue>
+        <fullName>ShipMonk</fullName>
+        <default>false</default>
+        <label>ShipMonk</label>
+    </customValue>
+    <customValue>
+        <fullName>Salesforce</fullName>
+        <default>false</default>
+        <label>Salesforce</label>
+    </customValue>
+    <description>Systems that send or receive data through the Nfinity integration hub.</description>
+    <masterLabel>NFY Integration Systems</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

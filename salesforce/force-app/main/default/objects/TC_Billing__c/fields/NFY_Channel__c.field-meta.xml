@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Channel__c</fullName>
+    <label>Channel</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Shopify .com</fullName>
+                <default>false</default>
+                <label>Shopify .com</label>
+            </value>
+            <value>
+                <fullName>Shopify POS</fullName>
+                <default>false</default>
+                <label>Shopify POS</label>
+            </value>
+            <value>
+                <fullName>Amazon FBA</fullName>
+                <default>false</default>
+                <label>Amazon FBA</label>
+            </value>
+            <value>
+                <fullName>Amazon FBM</fullName>
+                <default>false</default>
+                <label>Amazon FBM</label>
+            </value>
+            <value>
+                <fullName>Buy with Prime</fullName>
+                <default>false</default>
+                <label>Buy with Prime</label>
+            </value>
+            <value>
+                <fullName>Amazon MCF</fullName>
+                <default>false</default>
+                <label>Amazon MCF</label>
+            </value>
+            <value>
+                <fullName>Global-e</fullName>
+                <default>false</default>
+                <label>Global-e</label>
+            </value>
+            <value>
+                <fullName>Wholesale / Team</fullName>
+                <default>false</default>
+                <label>Wholesale / Team</label>
+            </value>
+            <value>
+                <fullName>EU Webstore</fullName>
+                <default>false</default>
+                <label>EU Webstore</label>
+            </value>
+            <value>
+                <fullName>Odoo</fullName>
+                <default>false</default>
+                <label>Odoo</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

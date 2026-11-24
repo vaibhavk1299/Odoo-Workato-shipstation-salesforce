@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Active_In_Shopify__c</fullName>
+    <defaultValue>true</defaultValue>
+    <label>Active in Shopify</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

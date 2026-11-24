@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Nfinity Integration Origin</masterLabel>
+    <description>Shows where a record came from, its last sync and its Integration Log entries; on an Integration Log record, shows the result with a Retry button.</description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <property name="variant" type="String" label="Show" datasource="card,log,event" default="card" description="card: origin card. log: Integration Log list. event: result and Retry on an Integration Log record."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

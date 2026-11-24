@@ -1,0 +1,6 @@
+salesforce_code,tc_warehouse_name,operator_system,odoo_location,odoo_x_nfy_sf_code,odoo_x_nfy_shipstation,odoo_ship_from_option,type,city,routing_rank
+MAIN,Nfinity Main Warehouse,SHIPSTATION,NFM/Stock,MAIN,True,yes,In-house warehouse,"Atlanta, GA",2
+SM-PA1,ShipMonk Pennsylvania (PA1),SHIPMONK,NFM/ShipMonk PA1,SM-PA1,False,yes,3PL,"Pittston, PA",1
+SM-NV3,ShipMonk Nevada 3,SHIPMONK,NFM/Stock/ShipMonk NV3,SM-NV3,False,no,3PL,"Las Vegas, NV",1
+FBA-US,Amazon_FBA US,AMAZON,NFM/Amazon FBA,FBA-US,False,yes,Amazon FBA,Amazon network,5
+,(transit),,Inter-warehouse transit,,False,no,transit location for in-transit transfers,,

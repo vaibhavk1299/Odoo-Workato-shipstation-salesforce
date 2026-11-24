@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Type__c</fullName>
+    <label>Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Amazon FBA inbound</fullName>
+                <default>false</default>
+                <label>Amazon FBA inbound</label>
+            </value>
+            <value>
+                <fullName>3PL ASN</fullName>
+                <default>false</default>
+                <label>3PL ASN</label>
+            </value>
+            <value>
+                <fullName>Factory container</fullName>
+                <default>false</default>
+                <label>Factory container</label>
+            </value>
+            <value>
+                <fullName>Stock transfer</fullName>
+                <default>false</default>
+                <label>Stock transfer</label>
+            </value>
+            <value>
+                <fullName>Vendor receipt</fullName>
+                <default>false</default>
+                <label>Vendor receipt</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Label_System__c</fullName>
+    <label>Label System</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ShipMonk WMS</fullName>
+                <default>false</default>
+                <label>ShipMonk WMS</label>
+            </value>
+            <value>
+                <fullName>ShipStation</fullName>
+                <default>false</default>
+                <label>ShipStation</label>
+            </value>
+            <value>
+                <fullName>Amazon</fullName>
+                <default>false</default>
+                <label>Amazon</label>
+            </value>
+            <value>
+                <fullName>Global-e</fullName>
+                <default>false</default>
+                <label>Global-e</label>
+            </value>
+            <value>
+                <fullName>Odoo</fullName>
+                <default>false</default>
+                <label>Odoo</label>
+            </value>
+            <value>
+                <fullName>Decorator</fullName>
+                <default>false</default>
+                <label>Decorator</label>
+            </value>
+            <value>
+                <fullName>Factory (direct)</fullName>
+                <default>false</default>
+                <label>Factory (direct)</label>
+            </value>
+            <value>
+                <fullName>Printful</fullName>
+                <default>false</default>
+                <label>Printful</label>
+            </value>
+            <value>
+                <fullName>Hand-delivered</fullName>
+                <default>false</default>
+                <label>Hand-delivered</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

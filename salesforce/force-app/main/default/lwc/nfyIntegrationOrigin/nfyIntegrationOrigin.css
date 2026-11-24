@@ -1,0 +1,13 @@
+.origin .slds-item_label {
+    width: 40%;
+    padding-bottom: 0.4rem;
+}
+.origin .slds-item_detail {
+    width: 60%;
+    padding-bottom: 0.4rem;
+    word-break: break-word;
+}
+.source {
+    background: #fdeedd;
+    color: #8a4500;
+}

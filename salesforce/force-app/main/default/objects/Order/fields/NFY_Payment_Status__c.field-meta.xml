@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Payment_Status__c</fullName>
+    <description>Payment state of the order&apos;s posted TC billings. Set by NFY_PaymentStatusService whenever a billing posts or cash or a credit memo is applied. Blank until the order is billed.</description>
+    <inlineHelpText>Unpaid, Partially Paid or Paid from the order&apos;s posted invoices; Credited when credit memos cover the invoiced amount.</inlineHelpText>
+    <label>Payment Status</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Unpaid</fullName>
+                <default>false</default>
+                <label>Unpaid</label>
+            </value>
+            <value>
+                <fullName>Partially Paid</fullName>
+                <default>false</default>
+                <label>Partially Paid</label>
+            </value>
+            <value>
+                <fullName>Paid</fullName>
+                <default>false</default>
+                <label>Paid</label>
+            </value>
+            <value>
+                <fullName>Credited</fullName>
+                <default>false</default>
+                <label>Credited</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

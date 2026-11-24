@@ -1,0 +1,7 @@
+Name,Code__c,Category__c,Mode__c,Region__c,Status__c,Sort_Order__c,Hide_From_Map__c,Owner_Team__c,Description__c
+Odoo (Commerce),ODOO_SHOP,Sales channel,Webhook,Global,Connected,3.5,false,Twopir integration team,Odoo orders received by Workato webhook and posted to the Integration API as order.upsert.
+ShipStation,SHIPSTATION,Label system,Webhook,US,Connected,5,false,Nfinity ops,Labels for Nfinity Main.
+Workato,WORKATO,Integration hub,Webhook,Global,Connected,7,false,Nfinity ops,Integration hub. Every recipe calls the Nfinity Integration API and writes a sync log.
+Salesforce + TC Accounting,SALESFORCE,CRM,Webhook,US,Connected,8,false,Nfinity ops,System of record for orders, inventory, shipments, billing and cash.
+ShipMonk,SHIPMONK,3PL / WMS,Webhook,US,Planned,4,false,Nfinity ops,"3PL warehouses SM-PA1 and SM-NV3. Stock is held in Odoo locations; no direct ShipMonk integration."
+Amazon Seller Central,AMAZON,Sales channel,Polling,US,Planned,2,true,Nfinity ops,"Operator of warehouse FBA-US. Stock is held in an Odoo location; no direct Amazon integration."

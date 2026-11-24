@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Odoo_Partner_Id__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Odoo res.partner ID for this customer.</description>
+    <externalId>true</externalId>
+    <label>Odoo Partner ID</label>
+    <length>40</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

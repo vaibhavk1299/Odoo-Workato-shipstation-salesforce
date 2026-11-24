@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Source_System__c</fullName>
+    <description>System the record was first received from. Set once by the integration.</description>
+    <inlineHelpText>The system this record came from. Set once, on create.</inlineHelpText>
+    <label>Source System</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>NFY_Integration_Systems</valueSetName>
+    </valueSet>
+</CustomField>

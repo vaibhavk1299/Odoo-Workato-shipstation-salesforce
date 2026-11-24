@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Last_Sync_Operation__c</fullName>
+    <description>What the most recent successful sync did to this record.</description>
+    <label>Last Sync Operation</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Created</fullName>
+                <default>false</default>
+                <label>Created</label>
+            </value>
+            <value>
+                <fullName>Updated</fullName>
+                <default>false</default>
+                <label>Updated</label>
+            </value>
+            <value>
+                <fullName>No change</fullName>
+                <default>false</default>
+                <label>No change</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

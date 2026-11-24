@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NFY_Odoo_Product_Id__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Odoo product.product ID (one per variant). Match key for product.upsert from Odoo; when set, Odoo owns the product&apos;s catalogue fields.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Odoo product variant ID. Set by the Odoo product sync; Odoo is the master for name, SKU, description, family, active, cost and corporate-currency price.</inlineHelpText>
+    <label>Odoo Product ID</label>
+    <length>40</length>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

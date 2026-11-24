@@ -1,0 +1,1 @@
+<data><xpath expr="//field[@name='origin']" position="after"><field name="x_nfy_carrier" invisible="picking_type_code != 'outgoing'"/><field name="x_nfy_tracking" invisible="picking_type_code != 'outgoing'"/></xpath></data>

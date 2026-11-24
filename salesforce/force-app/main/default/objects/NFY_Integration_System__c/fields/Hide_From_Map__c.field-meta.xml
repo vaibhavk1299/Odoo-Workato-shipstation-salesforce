@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Hide_From_Map__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Keeps this system off the Command Center integration architecture map. Its sync logs and health still appear everywhere else.</description>
+    <inlineHelpText>Tick to leave this system off the integration architecture map.</inlineHelpText>
+    <label>Hide from Map</label>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

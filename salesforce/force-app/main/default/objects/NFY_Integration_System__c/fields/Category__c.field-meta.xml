@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Sales channel</fullName>
+                <default>false</default>
+                <label>Sales channel</label>
+            </value>
+            <value>
+                <fullName>3PL / WMS</fullName>
+                <default>false</default>
+                <label>3PL / WMS</label>
+            </value>
+            <value>
+                <fullName>Label system</fullName>
+                <default>false</default>
+                <label>Label system</label>
+            </value>
+            <value>
+                <fullName>Integration hub</fullName>
+                <default>false</default>
+                <label>Integration hub</label>
+            </value>
+            <value>
+                <fullName>Accounting / ERP</fullName>
+                <default>false</default>
+                <label>Accounting / ERP</label>
+            </value>
+            <value>
+                <fullName>CRM</fullName>
+                <default>false</default>
+                <label>CRM</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>
